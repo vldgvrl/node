@@ -1,0 +1,26 @@
+
+extends layout
+
+block content
+  h1 Tehtävä #{taskNum}
+  h2 #{taskDescription}
+  pre #{response}
+  form(name="pino-form", method='get')
+    div.input
+      span.label Push arvo
+      div(class="margin-top-xs")
+        input(type="test", name="push_value")
+    div(class="margin-top-s")
+      button(onclick='Submit') Push
+      button(onclick='callPop(#{taskNum})') Pop
+
+  script.
+    function callPop(taskNum) {
+      var popRequest = new XMLHttpRequest();
+      if(taskNum === 1) {
+        popRequest.open('GET', 'http://localhost:3000/pino?pop=true', false)
+      } else {
+        popRequest.open('GET', 'http://localhost:3000/jono?dequeue=true', false)
+      }
+      popRequest.send( null )
+    }
