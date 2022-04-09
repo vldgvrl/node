@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var firstTask = require('./routes/pino');
 var secondTask = require('./routes/jono');
+var thirdTask = require('./routes/iteration');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pino', firstTask);
 app.use('/jono', secondTask);
+app.use('/iteration', thirdTask);
 
 
 // catch 404 and forward to error handler

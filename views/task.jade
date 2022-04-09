@@ -5,6 +5,7 @@ block content
   h1 Tehtävä #{taskNum}
   h2 #{taskDescription}
   pre #{response}
+  //- if taskNum == 1 || taskNum == 2 || taskNum  
   form(name="pino-form", method='get')
     div.input
       span.label Push arvo
@@ -13,6 +14,8 @@ block content
     div(class="margin-top-s")
       button(onclick='Submit') Push
       button(onclick='callPop(#{taskNum})') Pop
+  //- else
+
 
   script.
     function callPop(taskNum) {
@@ -20,7 +23,11 @@ block content
       if(taskNum === 1) {
         popRequest.open('GET', 'http://localhost:3000/pino?pop=true', false)
       } else {
-        popRequest.open('GET', 'http://localhost:3000/jono?dequeue=true', false)
+        if (taskNum === 2) {
+          popRequest.open('GET', 'http://localhost:3000/jono?dequeue=true', false)
+        } else {
+          popRequest.open('GET', 'http://localhost:3000/iteration?pop=true', false)
+        }
       }
       popRequest.send( null )
     }
