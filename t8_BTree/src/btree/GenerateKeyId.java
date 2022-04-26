@@ -1,11 +1,26 @@
 package btree;
+import java.util.Random;
 
 public class GenerateKeyId {
 
-    private int key;
+    Random n = new Random();
+    public int defaultKey = 100;
+    private int leftKeyIdentifier = 100;
+    private  int rightKeyIdentifier = 100;
+    public int generatedKey;
 
     public int generateKeyId() {
-        return key++;
+        if(n.nextInt(10) > 5) {
+            rightKeyIdentifier++;
+            generatedKey = rightKeyIdentifier;
+            return generatedKey;
+        }
+        else {
+            leftKeyIdentifier--;
+            generatedKey = leftKeyIdentifier;
+            return generatedKey;
+        } 
     }
+    
     
 }

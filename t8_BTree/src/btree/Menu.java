@@ -19,8 +19,8 @@ public class Menu {
 //main loppuu --------------------------------------------------------------------------
 //printMenu alkaa------------------------------------------------------------------
         private static void printMenu() {
-                char select, select1;
-                BinaryTree tree = null, upDated = null;
+                char select;
+                BinaryTree tree = null, upDated = null; 
                 GenerateKeyId key = new GenerateKeyId();
                 String data;
                 do {
@@ -28,14 +28,15 @@ public class Menu {
                         System.out.println("\n\t\t\t1. Luo juurisolmu.");
                         System.out.println("\t\t\t2. Päivitä uusi solmu.");
                         System.out.println("\t\t\t3. Käy puu läpi esijärjestyksessä.");
-                        System.out.println("\t\t\t4. lopetus ");
+                        System.out.println("\t\t\t4. Etsi puusta avain.");
+                        System.out.println("\t\t\t5. lopetus ");
                         System.out.print("\n\n"); // tehdään tyhjiä rivejä
                         select = Lue.merkki();
                         switch (select) {
                         case '1':
                             System.out.println("Anna juuren sisältö (merkkijono)");
                             data = new String(Lue.rivi());
-                            tree = new BinaryTree(data, key.generateKeyId());
+                            tree = new BinaryTree(data, key.defaultKey);
                             break;
                         case '2':
                             if (tree == null)
@@ -45,31 +46,28 @@ public class Menu {
                                 BinaryTree newTree = new BinaryTree(new String(Lue.rivi()), key.generateKeyId());
 
                                 tree.setNotFound();
-                                tree.findWithPreOrder();
-                                upDated = BinaryTree.getFound();
-                                if (upDated==null) // ei valittu mitään
-                                    break;
-                                System.out.print("Kytke vasemmalle? (k/e)");
-                                select1 = Lue.merkki();
-                                if (select1=='k')
-                                    upDated.setLeft(newTree);
-                                else {
-                                    System.out.print("Kytke oikealle? (k/e)");
-                                    select1 = Lue.merkki();
-                                    if (select1=='k')
-                                        upDated.setRight(newTree);
-                                }
+                                upDated = tree.findWithPreOrder(key.generatedKey);
+                                upDated.setNode(newTree, key.generatedKey);
                             }
+                            System.out.println("=============");
+                            tree.preOrder();
                             break;
                         case '3':
                             tree.preOrder();
                             char h = Lue.merkki(); // pysäytetään kontrolli
                             break;
                         case '4':
+                            System.out.println("Anna solmun avain arvo"); // pyttään antamaan avain arvo
+                            int findByKeyValue = Lue.kluku(); 
+
+                            System.out.println("Etsitaan puussa avain: " + findByKeyValue);
+                            tree.showFoundNode(findByKeyValue);
+                            break;
+                        case '5':
                             break;
                         }
                 }
-                while (select != '4');
+                while (select != '5');
         }
 //printMenu loppuu ----------------------------------------------------------------
 }

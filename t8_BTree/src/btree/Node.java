@@ -11,14 +11,19 @@ package btree;
  */
 public class Node {
     int key;
+    public int defaultKey = 100;
     private String data;
     private BinaryTree left;
     private BinaryTree right;
+    private String sideMarker;
 
     public Node(String value, int item) {
         data = new String(value);
         key = item;
         left = right = null;
+        if(key == 100)
+            sideMarker = "juurisolmu";
+
     }
     public  Node (String value, BinaryTree left, BinaryTree right) {
         data = new String(value);
@@ -42,6 +47,15 @@ public class Node {
     }
     public int getKey() {
         return key;
+    }
+    public String getSideMarker() {
+        if (sideMarker == null)
+            return "";
+        else
+            return sideMarker;
+    }
+    public void setSideMarker(String marker) {
+        sideMarker = marker;
     }
 
 

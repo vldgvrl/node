@@ -22,9 +22,18 @@ public class BinaryTree {
         root = new Node(rootValue, left, right);
     } */
 
+    public void showFoundNode (int key) {
+        this.setNotFound();
+        found = this.findWithPreOrder(key); 
+        System.out.println("Läheinen solmu on: ");
+        System.out.println("******");
+        System.out.println(found.root.getData()+ "[" + found.root.getKey() + "] - " + found.root.getSideMarker());
+        System.out.println("******");
+    }
+
     public void preOrder() {
         if (root != null) {
-            System.out.println(root.getData()+ "[" + root.getKey() + "]");
+            System.out.println(root.getData()+ "[" + root.getKey() + "] - " + root.getSideMarker());
             if (root.left() != null) // pääseeekö vasemmalle?
                 root.left().preOrder();
             if (root.right() != null) // pääseekö oikealle?
@@ -34,25 +43,26 @@ public class BinaryTree {
     }
 
     // löydetty alipuu asetetaan staattiseen muuttujaan found
-    public void findWithPreOrder() {
+    public BinaryTree findWithPreOrder(int key) {
 
         if (root != null) {
-            System.out.print(root.getData()+ ": muokkaatko tätä?");
-            if (root.left()== null)
-                System.out.print(" (vasemmalla tilaa)");
-            if (root.right() == null)
-                System.out.println(" (oikealla tilaa)");
-            char select = Lue.merkki();
-            if (select =='k') {
-                found = this;
+            // pääseekö vasemmalle?
+            if (found == null && root.left() != null && key < root.getKey()) {
+                found = root.left().findWithPreOrder(key);
+                return found;
 
-                //return;
-            }
-            if (found==null && root.left() != null) // pääseekö vasemmalle?
-                root.left().findWithPreOrder();
-            if (found== null && root.right() != null) // pääseekö oikealle?
-                root.right().findWithPreOrder();
-        }
+            } 
+            // pääseekö oikealle?
+            if (found == null && root.right() != null && key > root.getKey()) {
+                found = root.right().findWithPreOrder(key);
+                return found;
+            }  
+
+        } 
+
+        // Ei ole solmu vasemalla ja oikealla
+        found = this;
+        return found;
 
     }
     public void setNotFound() {
@@ -68,5 +78,29 @@ public class BinaryTree {
 
     public void setRight(BinaryTree tree) {
         root.setRight(tree);
+    }
+
+    public void setNode(BinaryTree tree, int key) {
+
+        //vähemmän kuin oletus arvo
+        if(key < root.defaultKey) {
+            if(key < root.getKey() && root.right() != null )  {
+                tree.root.setSideMarker("oikeinsolmu");
+                root.setLeft(tree);
+            } else {
+                tree.root.setSideMarker("vasensolmu");
+                root.setRight(tree);
+            }
+
+        } else {
+            if(key > root.getKey() && root.left() == null) {
+                tree.root.setSideMarker("oikeinsolmu");
+                root.setLeft(tree);
+            } else {
+                tree.root.setSideMarker("vasensolmu");
+                root.setRight(tree);
+            }
+            
+        }
     }
 }
