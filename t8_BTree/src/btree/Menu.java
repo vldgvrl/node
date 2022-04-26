@@ -21,6 +21,7 @@ public class Menu {
         private static void printMenu() {
                 char select, select1;
                 BinaryTree tree = null, upDated = null;
+                GenerateKeyId key = new GenerateKeyId();
                 String data;
                 do {
 
@@ -34,14 +35,14 @@ public class Menu {
                         case '1':
                             System.out.println("Anna juuren sisältö (merkkijono)");
                             data = new String(Lue.rivi());
-                            tree = new BinaryTree(data);
+                            tree = new BinaryTree(data, key.generateKeyId());
                             break;
                         case '2':
                             if (tree == null)
                                 System.out.println("Et ole muodostanut juurisolmua.");
                             else {
                                 System.out.println("Anna solmun sisältö (merkkijono)");
-                                BinaryTree newTree = new BinaryTree(new String(Lue.rivi()));
+                                BinaryTree newTree = new BinaryTree(new String(Lue.rivi()), key.generateKeyId());
 
                                 tree.setNotFound();
                                 tree.findWithPreOrder();

@@ -14,8 +14,8 @@ public class BinaryTree {
     private Node root;
     public static BinaryTree found; // findWithPreOrder()-operaation apurakenne
 
-    public BinaryTree(String rootValue) {
-        root = new Node(rootValue);
+    public BinaryTree(String rootValue, int keyId) {
+        root = new Node(rootValue, keyId);
     }
 
     /*public BinaryTree(String rootValue, BinaryTree left, BinaryTree right){
@@ -24,7 +24,7 @@ public class BinaryTree {
 
     public void preOrder() {
         if (root != null) {
-            System.out.println(root.getData()+',');
+            System.out.println(root.getData()+ "[" + root.getKey() + "]");
             if (root.left() != null) // pääseeekö vasemmalle?
                 root.left().preOrder();
             if (root.right() != null) // pääseekö oikealle?
@@ -45,7 +45,8 @@ public class BinaryTree {
             char select = Lue.merkki();
             if (select =='k') {
                 found = this;
-                return;
+
+                //return;
             }
             if (found==null && root.left() != null) // pääseekö vasemmalle?
                 root.left().findWithPreOrder();

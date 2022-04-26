@@ -10,12 +10,14 @@ package btree;
  * @author kamaj
  */
 public class Node {
+    int key;
     private String data;
     private BinaryTree left;
     private BinaryTree right;
 
-    public Node(String value) {
+    public Node(String value, int item) {
         data = new String(value);
+        key = item;
         left = right = null;
     }
     public  Node (String value, BinaryTree left, BinaryTree right) {
@@ -37,6 +39,9 @@ public class Node {
     }
     public void setRight(BinaryTree tree) {
         right = tree;
+    }
+    public int getKey() {
+        return key;
     }
 
 
