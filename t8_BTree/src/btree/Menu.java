@@ -51,6 +51,8 @@ public class Menu {
                             }
                             System.out.println("=============");
                             tree.preOrder();
+                            System.out.println("Puun koko: " + tree.getTreeSize(tree));
+                            System.out.println("Puun korkeus: " + tree.getTreeHeight(tree));
                             break;
                         case '3':
                             tree.preOrder();

@@ -16,6 +16,7 @@ public class Node {
     private BinaryTree left;
     private BinaryTree right;
     private String sideMarker;
+    public int leaveHeight;
 
     public Node(String value, int item) {
         data = new String(value);
@@ -56,6 +57,12 @@ public class Node {
     }
     public void setSideMarker(String marker) {
         sideMarker = marker;
+    }
+    public int getLeaveHeight() {
+        return leaveHeight;
+    }
+    public void setLeaveHeight(int lh) {
+        leaveHeight = lh;
     }
 
 

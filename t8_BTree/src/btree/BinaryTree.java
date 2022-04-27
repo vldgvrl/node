@@ -32,8 +32,21 @@ public class BinaryTree {
     }
 
     public void preOrder() {
+
+        if(root == null) {
+            root.setLeaveHeight(root.leaveHeight-1);
+        } else {
+            if (root.left() != null ) {
+                root.left().root.setLeaveHeight(root.leaveHeight+1);
+            }
+            if (root.right() != null ) {
+                root.right().root.setLeaveHeight(root.leaveHeight+1);
+            }
+        }
         if (root != null) {
             System.out.println(root.getData()+ "[" + root.getKey() + "] - " + root.getSideMarker());
+            System.out.println("Alipuun korkeuden: " + root.getLeaveHeight());
+
             if (root.left() != null) // pääseeekö vasemmalle?
                 root.left().preOrder();
             if (root.right() != null) // pääseekö oikealle?
@@ -82,25 +95,46 @@ public class BinaryTree {
 
     public void setNode(BinaryTree tree, int key) {
 
-        //vähemmän kuin oletus arvo
-        if(key < root.defaultKey) {
+        if(key < root.defaultKey-1) {
             if(key < root.getKey() && root.right() != null )  {
-                tree.root.setSideMarker("oikeinsolmu");
+                tree.root.setSideMarker("vasensolmu");
                 root.setLeft(tree);
             } else {
-                tree.root.setSideMarker("vasensolmu");
+                tree.root.setSideMarker("oikeinsolmu");
                 root.setRight(tree);
             }
 
-        } else {
-            if(key > root.getKey() && root.left() == null) {
-                tree.root.setSideMarker("oikeinsolmu");
+        } else { //ensimmäinen solmu taso
+            if(key < root.getKey() )  {
+                tree.root.setSideMarker("vasensolmu");
                 root.setLeft(tree);
             } else {
-                tree.root.setSideMarker("vasensolmu");
+                tree.root.setSideMarker("oikeinsolmu");
                 root.setRight(tree);
             }
-            
+        }
+
+       
+    }
+
+    public int getTreeSize(BinaryTree tree) {
+        if(tree == null) 
+            return 0;
+        else 
+            return 1 + getTreeSize(tree.root.left()) + getTreeSize(tree.root.right());
+    }
+
+    public int getTreeHeight(BinaryTree tree) {
+
+        int lh;     /* height of left subtree */
+        int rh;     /* height of right subtree */
+
+        if(tree == null) {
+            return -1;
+        } else {
+            lh = getTreeHeight(tree.root.left());
+            rh = getTreeHeight(tree.root.right());
+            return 1 + (lh > rh ? lh : rh);
         }
     }
 }
