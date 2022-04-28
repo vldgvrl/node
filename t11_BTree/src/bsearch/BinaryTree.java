@@ -209,9 +209,13 @@ public class BinaryTree {
         System.out.println("Binääripuu taulukossa:");
         System.out.println("********"); 
 
-        for (String elem : treeInList) {
-           
-           System.out.print(elem + " | "); 
+        for (int e=0; e<treeInList.size()-1; e++) {
+           if(e==1)
+                System.out.print(treeInList.get(e+1) + " | "); 
+           else if(e==2) 
+                System.out.print(treeInList.get(e-1) + " | "); 
+           else 
+                System.out.print(treeInList.get(e) + " | "); 
 
         }
 
