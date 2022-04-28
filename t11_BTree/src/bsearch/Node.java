@@ -11,26 +11,35 @@ package bsearch;
  */
 public class Node {
     int key;
-    public int defaultKey = 100;
     private String data;
     private BinaryTree left;
     private BinaryTree right;
     private String sideMarker;
     public int leaveHeight;
+    private static int currentListId;
+    private String[] autoTreeValues = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     public Node(String value, int item) {
         data = new String(value);
         key = item;
+        this.sideMarker = "juurisolmu";
         left = right = null;
-        if(key == 100)
-            sideMarker = "juurisolmu";
-
     }
+
     public  Node (String value, BinaryTree left, BinaryTree right) {
         data = new String(value);
         this.left = left;
         this.right = right;
     }
+
+    //generate Node with preassigned values
+    public Node (int itemId) {
+        data = new String(autoTreeValues[currentListId]);
+        currentListId++;
+        key = itemId;
+        left = right = null;
+    }
+
     public String getData() {
         return data;
     }

@@ -29,7 +29,8 @@ public class Menu {
                         System.out.println("\t\t\t2. Päivitä uusi solmu.");
                         System.out.println("\t\t\t3. Käy puu läpi esijärjestyksessä.");
                         System.out.println("\t\t\t4. Etsi puusta avain.");
-                        System.out.println("\t\t\t5. lopetus ");
+                        System.out.println("\t\t\t5. Näytä puu test");
+                        System.out.println("\t\t\t6. lopetus ");
                         System.out.print("\n\n"); // tehdään tyhjiä rivejä
                         select = Lue.merkki();
                         switch (select) {
@@ -66,10 +67,27 @@ public class Menu {
                             tree.showFoundNode(findByKeyValue);
                             break;
                         case '5':
+                            BinaryTree autoTree = new BinaryTree("ROOT", 100);
+                            for (int i=0; i<21; i++) {
+                                BinaryTree autoTreeLeaf = new BinaryTree(key.generateKeyId());
+                                autoTree.setNode(autoTreeLeaf, key.generatedKey);
+                                //BinaryTree autoTreeLeafTwo = new BinaryTree(key.generateOrderedKey());
+
+                                //System.out.println("Ordered key is: " + GenerateKeyId.orderedKey);
+                                //System.out.println("New generated key is: " + key.generateOrderedKey());
+                                
+                                //autoTree.setNode(autoTreeLeafTwo, GenerateKeyId.orderedKey);
+                            }
+                            System.out.println("=============");
+                            autoTree.preOrder();
+                            System.out.println("Puun koko: " + autoTree.getTreeSize(autoTree));
+                            System.out.println("Puun korkeus: " + autoTree.getTreeHeight(autoTree));
+                            break;
+                        case '6':
                             break;
                         }
                 }
-                while (select != '5');
+                while (select != '6');
         }
 //printMenu loppuu ----------------------------------------------------------------
 }

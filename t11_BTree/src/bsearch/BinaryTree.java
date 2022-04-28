@@ -18,9 +18,15 @@ public class BinaryTree {
         root = new Node(rootValue, keyId);
     }
 
+    public BinaryTree(int generateOrderedKey) {
+        root = new Node(generateOrderedKey);
+    }
+    
+
     /*public BinaryTree(String rootValue, BinaryTree left, BinaryTree right){
         root = new Node(rootValue, left, right);
     } */
+
 
     public void showFoundNode (int key) {
         this.setNotFound();
@@ -44,8 +50,8 @@ public class BinaryTree {
             }
         }
         if (root != null) {
-            System.out.println(root.getData()+ "[" + root.getKey() + "] - " + root.getSideMarker());
-            System.out.println("Alipuun korkeuden: " + root.getLeaveHeight());
+            System.out.println("Taso: " + root.getLeaveHeight() + " -> " + root.getData()+ "[" + root.getKey() + "] - " + root.getSideMarker());
+            //System.out.println("Alipuun korkeuden: " + root.getLeaveHeight());
 
             if (root.left() != null) // pääseeekö vasemmalle?
                 root.left().preOrder();
@@ -95,26 +101,38 @@ public class BinaryTree {
 
     public void setNode(BinaryTree tree, int key) {
 
-        if(key < root.defaultKey-1) {
-            if(key < root.getKey() && root.right() != null )  {
-                tree.root.setSideMarker("vasensolmu");
-                root.setLeft(tree);
-            } else {
-                tree.root.setSideMarker("oikeinsolmu");
-                root.setRight(tree);
-            }
+        //System.out.println("New leaf: " + tree.root.getData());
+        //System.out.println("Parent: " + root.getData());
 
-        } else { //ensimmäinen solmu taso
-            if(key < root.getKey() )  {
-                tree.root.setSideMarker("vasensolmu");
-                root.setLeft(tree);
-            } else {
-                tree.root.setSideMarker("oikeinsolmu");
-                root.setRight(tree);
-            }
+        /*
+        if (root.left() != null && root.right() != null) {
+            System.out.println("--Left leaf: " + root.left().root.getData());
+            System.out.println("--Right leaf: " + root.right().root.getData());
         }
+        */
 
-       
+        //if(root.left() == null && root.right() == null) {
+            if (tree.root.getSideMarker() != "juurisolmu") {
+
+                //current key is bigger then new one
+                if(root.getKey() > key) {
+                    if(root.left() != null) {
+                        root.left().setNode(tree, key);
+                    } else {
+                        root.setLeft(tree);
+                        tree.root.setSideMarker("vasensolmu");
+                    }
+                } else {
+                    if(root.right() != null) {
+                        root.right().setNode(tree, key);
+                    } else {
+                        root.setRight(tree);
+                        tree.root.setSideMarker("oikeinsolmu");
+                    }
+                }
+            }
+        //} else { 
+        //}
     }
 
     public int getTreeSize(BinaryTree tree) {
