@@ -21,6 +21,7 @@ public class Menu {
         private static void printMenu() {
                 char select;
                 BinaryTree tree = null, upDated = null; 
+                BinaryTree autoTree = new BinaryTree("ROOT", 100);
                 GenerateKeyId key = new GenerateKeyId();
                 String data;
                 do {
@@ -40,8 +41,11 @@ public class Menu {
                             tree = new BinaryTree(data, key.defaultKey);
                             break;
                         case '2':
-                            if (tree == null)
-                                System.out.println("Et ole muodostanut juurisolmua.");
+                            if (tree == null) {
+                                System.out.println("=============");
+                                autoTree.preOrder();
+                                autoTree.countTreeElements();
+                            }
                             else {
                                 System.out.println("Anna solmun sisältö (merkkijono)");
                                 BinaryTree newTree = new BinaryTree(new String(Lue.rivi()), key.generateKeyId());
@@ -52,23 +56,29 @@ public class Menu {
                             }
                             System.out.println("=============");
                             tree.preOrder();
-                            System.out.println("Puun koko: " + tree.getTreeSize(tree));
-                            System.out.println("Puun korkeus: " + tree.getTreeHeight(tree));
+                            tree.countTreeElements();
                             break;
                         case '3':
+                            if(tree == null) {
+                                autoTree.preOrder();
+                            } else {
                             tree.preOrder();
                             char h = Lue.merkki(); // pysäytetään kontrolli
+                            }
                             break;
                         case '4':
                             System.out.println("Anna solmun avain arvo"); // pyttään antamaan avain arvo
                             int findByKeyValue = Lue.kluku(); 
 
                             System.out.println("Etsitaan puussa avain: " + findByKeyValue);
-                            tree.showFoundNode(findByKeyValue);
+                            if(tree == null) {
+                                autoTree.showFoundNode(findByKeyValue);
+                            } else {
+                                tree.showFoundNode(findByKeyValue);
+                            }
                             break;
                         case '5':
-                            BinaryTree autoTree = new BinaryTree("ROOT", 100);
-                            for (int i=0; i<21; i++) {
+                            for (int i=0; i<26; i++) {
                                 BinaryTree autoTreeLeaf = new BinaryTree(key.generateKeyId());
                                 autoTree.setNode(autoTreeLeaf, key.generatedKey);
                                 //BinaryTree autoTreeLeafTwo = new BinaryTree(key.generateOrderedKey());
@@ -80,8 +90,8 @@ public class Menu {
                             }
                             System.out.println("=============");
                             autoTree.preOrder();
-                            System.out.println("Puun koko: " + autoTree.getTreeSize(autoTree));
-                            System.out.println("Puun korkeus: " + autoTree.getTreeHeight(autoTree));
+                            autoTree.countTreeElements();
+                            autoTree.showTreeInTable();
                             break;
                         case '6':
                             break;

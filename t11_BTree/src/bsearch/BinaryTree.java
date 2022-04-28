@@ -5,6 +5,9 @@
 
 package bsearch;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  *
  * @author kamaj
@@ -13,6 +16,7 @@ public class BinaryTree {
 
     private Node root;
     public static BinaryTree found; // findWithPreOrder()-operaation apurakenne
+    ArrayList <String> treeInList = new ArrayList<String>();
 
     public BinaryTree(String rootValue, int keyId) {
         root = new Node(rootValue, keyId);
@@ -33,7 +37,7 @@ public class BinaryTree {
         found = this.findWithPreOrder(key); 
         System.out.println("Läheinen solmu on: ");
         System.out.println("******");
-        System.out.println(found.root.getData()+ "[" + found.root.getKey() + "] - " + found.root.getSideMarker());
+        System.out.println("Taso: " + found.root.leaveHeight + " -> " + found.root.getData()+ "[" + found.root.getKey() + "] - " + found.root.getSideMarker());
         System.out.println("******");
     }
 
@@ -59,6 +63,13 @@ public class BinaryTree {
                 root.right().preOrder();
         }
 
+    }
+
+    // count total results (tree size and tree height)
+    public void countTreeElements() {
+        System.out.println("=============");
+        System.out.println("Puun koko: " + this.getTreeSize(this));
+        System.out.println("Puun korkeus: " + this.getTreeHeight(this));
     }
 
     // löydetty alipuu asetetaan staattiseen muuttujaan found
@@ -154,5 +165,57 @@ public class BinaryTree {
             rh = getTreeHeight(tree.root.right());
             return 1 + (lh > rh ? lh : rh);
         }
+    }
+
+    private void generateTreeList(BinaryTree mainRoot) {
+        /* Count item level
+        if(root == null) {
+            root.setLeaveHeight(root.leaveHeight-1);
+        } else {
+            if (root.left() != null ) {
+                root.left().root.setLeaveHeight(root.leaveHeight+1);
+            }
+            if (root.right() != null ) {
+                root.right().root.setLeaveHeight(root.leaveHeight+1);
+            }
+        }
+        */
+
+        if (root != null) {
+
+            //String rootItem = root.getLeaveHeight() + " -> " + root.getData()+ "[" + root.getKey() + "] - " + root.getSideMarker();
+            String rootItem = root.getLeaveHeight() + " -> " + "[" + root.getKey() + "]" + root.getData();
+            mainRoot.addLeafToList(rootItem);
+
+            if (root.left() != null) // pääseeekö vasemmalle?
+                root.left().generateTreeList(mainRoot);
+            if (root.right() != null) // pääseekö oikealle?
+                root.right().generateTreeList(mainRoot);
+        }
+
+
+    }
+
+    private void addLeafToList(String item) {
+        treeInList.add(item);
+    }
+
+    public void showTreeInTable() {
+        
+        generateTreeList(this);
+
+        Collections.sort(treeInList);
+
+        System.out.println("Binääripuu taulukossa:");
+        System.out.println("********"); 
+
+        for (String elem : treeInList) {
+           
+           System.out.print(elem + " | "); 
+
+        }
+
+        System.out.println(""); 
+        System.out.println("********"); 
     }
 }
