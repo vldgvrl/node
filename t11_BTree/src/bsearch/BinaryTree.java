@@ -7,6 +7,8 @@ package bsearch;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -44,13 +46,17 @@ public class BinaryTree {
     public void preOrder() {
 
         if(root == null) {
-            root.setLeaveHeight(root.leaveHeight-1);
+            //root.setLeaveHeight(root.leaveHeight-1);
         } else {
-            if (root.left() != null ) {
-                root.left().root.setLeaveHeight(root.leaveHeight+1);
+            if (root.left() != null) { 
+                if (root.left().root != null ) {
+                    root.left().root.setLeaveHeight(root.leaveHeight+1);
+                }
             }
             if (root.right() != null ) {
-                root.right().root.setLeaveHeight(root.leaveHeight+1);
+                if (root.right().root != null ) {
+                    root.right().root.setLeaveHeight(root.leaveHeight+1);
+                }
             }
         }
         if (root != null) {
@@ -166,6 +172,95 @@ public class BinaryTree {
             return 1 + (lh > rh ? lh : rh);
         }
     }
+
+    public void delete(int key) {
+        
+        if (root == null)
+            return;
+            
+        if (root.left() == null && root.right() == null)
+        {
+            if (root.key == key)
+            {
+                root=null;
+                return;
+            }
+            else
+                return;
+        }
+        
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(root);
+        Node temp = null, keyNode = null;
+        
+        // Do level order traversal until
+        // we find key and last node.
+        while (!q.isEmpty()) {
+            temp = q.peek();
+            q.remove();
+            
+            if(temp != null) {
+
+                if (temp.key == key)
+                    keyNode = temp;
+        
+                if (temp.left() != null)
+                    q.add(temp.left().root);
+        
+                if (temp.right() != null)
+                    q.add(temp.right().root);
+            } else {
+                keyNode = null;
+                System.out.println("Last element to delete not found");
+            }
+        }
+    
+        if (keyNode != null) {
+            int x = temp.key;
+            deleteDeepest(root, temp);
+            keyNode.key = x;
+        } else {
+            System.out.println("Solmu ei löydetty");
+        }
+    }
+
+    private void deleteDeepest(Node root, Node delNode) {
+
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(root);
+        
+        Node temp = null;
+        
+        // Do level order traversal until last node
+        while (!q.isEmpty()) {
+            temp = q.peek();
+            q.remove();
+            
+            if (temp == delNode) {
+                temp = null;
+                return;
+            }
+
+            if (temp.right()!=null) {
+                if (temp.right().root == delNode) {
+                    temp.right().root = null;
+                    return;
+                }
+            else
+                q.add(temp.right().root);
+            }
+        
+            if (temp.left() != null) {
+                if (temp.left().root == delNode) {
+                    temp.left().root = null;
+                    return;
+                }
+                else
+                    q.add(temp.left().root);
+            }
+        }
+    }
+
 
     private void generateTreeList(BinaryTree mainRoot) {
         /* Count item level

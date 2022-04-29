@@ -31,7 +31,8 @@ public class Menu {
                         System.out.println("\t\t\t3. Käy puu läpi esijärjestyksessä.");
                         System.out.println("\t\t\t4. Etsi puusta avain.");
                         System.out.println("\t\t\t5. Näytä puu test");
-                        System.out.println("\t\t\t6. lopetus ");
+                        System.out.println("\t\t\t6. Poista solmu -operaatio");
+                        System.out.println("\t\t\t7. lopetus ");
                         System.out.print("\n\n"); // tehdään tyhjiä rivejä
                         select = Lue.merkki();
                         switch (select) {
@@ -94,10 +95,26 @@ public class Menu {
                             autoTree.showTreeInTable();
                             break;
                         case '6':
+                            System.out.println("***** Solmun poistaminen ******"); // pyttään antamaan avain arvo
+                            System.out.println("Anna solmun avain arvo"); // pyttään antamaan avain arvo
+                            int itemToRemove = Lue.kluku(); 
+
+                            if(tree == null) {
+                                autoTree.delete(itemToRemove);
+                                System.out.println("=============");
+                                autoTree.preOrder();
+                            } else {
+                                tree.delete(itemToRemove);
+                                System.out.println("=============");
+                                tree.preOrder();
+                            }
+                            
+                            break;
+                        case '7':
                             break;
                         }
                 }
-                while (select != '6');
+                while (select != '7');
         }
 //printMenu loppuu ----------------------------------------------------------------
 }
