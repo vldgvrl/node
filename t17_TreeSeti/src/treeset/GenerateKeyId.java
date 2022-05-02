@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class GenerateKeyId {
 
     Random n = new Random();
-    public int defaultKey = 100;
+    public int defaultKey = 1;
     public int generatedKey;
     public static int orderedKey;
-    private int lowestLine=50;
-    private int highestLine=150;
+    private int lowestLine=2;
+    private int highestLine=100;
     ArrayList<Integer> createdKeyIdList = new ArrayList<Integer>();
 
     private boolean keyExists( int key) {
@@ -22,25 +22,23 @@ public class GenerateKeyId {
     }
 
     public int generateKeyId() {
-        int randomId = defaultKey;
-
-        //exclude the key identifier is equal to root identifier
-        while (keyExists(randomId) || randomId == defaultKey) {
-            randomId = n.nextInt(highestLine - lowestLine) + lowestLine;
-        }
-
-        //System.out.println("Random key is: " + randomId);
-
-        if(randomId == lowestLine) {
-            lowestLine = lowestLine - 10;
-        }
+        /*
         if (randomId == highestLine) {
             highestLine = highestLine + 10;
         }
+        */
 
-        createdKeyIdList.add(randomId);
+        generatedKey = n.nextInt(100000);
 
-        generatedKey = randomId;
+        //exclude the key identifier is equal to root identifier
+        /*
+        while (keyExists(randomId) || randomId == defaultKey) {
+            randomId = n.nextInt(highestLine - lowestLine) + lowestLine;
+        }
+        */
+
+        //System.out.println("Random key is: " + randomId);
+
         return generatedKey;
 
     }
