@@ -33,6 +33,7 @@ public class Menu {
                         System.out.println("\t\t\t5. Näytä puu test");
                         System.out.println("\t\t\t6. Poista solmu -operaatio");
                         System.out.println("\t\t\t7. lopetus ");
+                        System.out.println("\t\t\t8. Generoi 100 000 ");
                         System.out.print("\n\n"); // tehdään tyhjiä rivejä
                         select = Lue.merkki();
                         switch (select) {
@@ -80,6 +81,22 @@ public class Menu {
                             break;
                         case '5':
                             for (int i=0; i<26; i++) {
+                                BinaryTree autoTreeLeaf = new BinaryTree(key.generateKeyId());
+                                autoTree.setNode(autoTreeLeaf, key.generatedKey);
+                                //BinaryTree autoTreeLeafTwo = new BinaryTree(key.generateOrderedKey());
+
+                                //System.out.println("Ordered key is: " + GenerateKeyId.orderedKey);
+                                //System.out.println("New generated key is: " + key.generateOrderedKey());
+                                
+                                //autoTree.setNode(autoTreeLeafTwo, GenerateKeyId.orderedKey);
+                            }
+                            System.out.println("=============");
+                            autoTree.preOrder();
+                            autoTree.countTreeElements();
+                            autoTree.showTreeInTable();
+                            break;
+                        case '8':
+                            for (int i=0; i<1000; i++) {
                                 BinaryTree autoTreeLeaf = new BinaryTree(key.generateKeyId());
                                 autoTree.setNode(autoTreeLeaf, key.generatedKey);
                                 //BinaryTree autoTreeLeafTwo = new BinaryTree(key.generateOrderedKey());

@@ -34,7 +34,8 @@ public class Node {
 
     //generate Node with preassigned values
     public Node (int itemId) {
-        data = new String(autoTreeValues[currentListId]);
+        //data = new String(autoTreeValues[currentListId]);
+        data = new String("Id:"+itemId);
         currentListId++;
         key = itemId;
         left = right = null;
