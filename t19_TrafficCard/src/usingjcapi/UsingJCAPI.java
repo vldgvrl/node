@@ -57,6 +57,12 @@ public class UsingJCAPI {
         while (nameItr.hasNext()) {
             System.out.println(nameItr.next());
         }
+
+        //Sort by number (Lambda expression)
+        System.out.println("======== Lajittelu numeron mukaan (Lambda-lauseke) ======== ");
+        Collections.sort(cardUsers, new sortByNumber());
+        
+        cardUsers.forEach( (n) -> System.out.println(n) );
     }
     
 }
