@@ -63,6 +63,14 @@ public class UsingJCAPI {
         Collections.sort(cardUsers, new sortByNumber());
         
         cardUsers.forEach( (n) -> System.out.println(n) );
+
+        //Balance more then 0 and less then 25
+        System.out.println("======== Saldo > 0 ja < 25 (Yhdistelmä operaatio) ======== ");
+        
+        cardUsers
+            .stream()
+            .filter( card -> card.mBalance > 0 && card.mBalance < 25 )
+            .forEach( (n) -> System.out.println(n) );
     }
     
 }
