@@ -30,11 +30,32 @@ public class UsingJCAPI {
         }
         
         //Sort implementation
+        
+        //Sort by number
+        System.out.println("======== Lajittelu numeron mukaan ======== ");
         Collections.sort(cardUsers, new sortByNumber());
         
         Iterator itr = cardUsers.iterator();
         while (itr.hasNext()) {
             System.out.println(itr.next());
+        }
+        
+        //Sort by balance
+        System.out.println("======== Lajittelu saldon mukaan ======== ");
+        Collections.sort(cardUsers, new sortByBalance());
+
+        Iterator saldoItr = cardUsers.iterator();
+        while (saldoItr .hasNext()) {
+            System.out.println(saldoItr.next());
+        }
+
+        //Sort by name
+        System.out.println("======== Lajittelu nimen mukaan ======== ");
+        Collections.sort(cardUsers, new sortByName());
+
+        Iterator nameItr = cardUsers.iterator();
+        while (nameItr.hasNext()) {
+            System.out.println(nameItr.next());
         }
     }
     
