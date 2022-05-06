@@ -79,4 +79,4 @@ public class Postfix {
     }
 }
  
-// This code is contributed by Arnab Kundu
+// Algoritm was taken from https://www.geeksforgeeks.org/stack-set-4-evaluation-postfix-expression/
